@@ -1,5 +1,5 @@
 import { SingleElementNode } from './single'
-import { GraphNode, $doNodeMap } from './node'
+import { GraphNode } from './node'
 import {
   assertGraphNode, assertNotFrozen,
   applyNodeMap
@@ -40,12 +40,12 @@ const createListNodeClass = Parent =>
       this[$nodeList].unshift(node)
     }
 
-    [$doNodeMap](target, mapper, mapTable) {
+    _doNodeMap(target, mapper, mapTable) {
       target[$nodeList] = this[$nodeList].map(
         subNode =>
           applyNodeMap(subNode, mapper, mapTable))
 
-      super[$doNodeMap](target, mapper, mapTable)
+      super._doNodeMap(target, mapper, mapTable)
     }
   }
 

@@ -2,7 +2,6 @@ import { GraphNode, $doElementMap } from './node'
 import { assertNotFrozen } from './util'
 
 const $element = Symbol('@element')
-const $setElement = Symbol('@setElement')
 const $transposed = Symbol('@transposed')
 
 export class SingleElementNode extends GraphNode {
@@ -30,11 +29,9 @@ export class SingleElementNode extends GraphNode {
           return graphNode
         }
       },
-      {
-        element: {
-          get() {
-            return element
-          }
+      element: {
+        get() {
+          return element
         }
       }
     })
@@ -48,12 +45,12 @@ export class SingleElementNode extends GraphNode {
     yield* super.elements()
   }
 
-  [$setElement](element) {
+  _setElement(element) {
     assertNotFrozen(this)
     this[$element] = element
   }
 
-  [$doElementMap](target, mapper) {
-    target[$setElement](mapper(this.element))
+  _doElementMap(target, mapper) {
+    target._setElement(mapper(this.element))
   }
 }

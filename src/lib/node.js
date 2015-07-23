@@ -9,14 +9,11 @@ const $frozen = Symbol('@frozen')
 if(!Symbol.species) Symbol.species = Symbol('@@species')
 const $species = Symbol.species
 
-export const $doNodeMap = Symbol('@doGraphMap')
-export const $doElementMap = Symbol('@doElementMap')
-
 export class GraphNode {
   constructor(opts={}) {
     const { meta=new Map() } = opts
 
-    this[$id] = Symbol(idgen)
+    this[$id] = Symbol(idgen())
     this[$frozen] = false
     this[$meta] = meta
   }
@@ -69,11 +66,11 @@ export class GraphNode {
     // noop
   }
 
-  [$doElementMap](target, mapper) {
+  _doElementMap(target, mapper) {
     // noop
   }
 
-  [$doNodeMap](target, mapper, mapTable) {
+  _doNodeMap(target, mapper, mapTable) {
     // noop
   }
 
@@ -87,8 +84,8 @@ export class GraphNode {
 
     mapTable.set(this.id, target)
 
-    this[$doElementMap](target, elementMapper)
-    this[$doNodeMap](target, nodeMapper, mapTable)
+    this._doElementMap(target, elementMapper)
+    this._doNodeMap(target, nodeMapper, mapTable)
 
     return target
   }

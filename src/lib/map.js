@@ -1,10 +1,16 @@
-import { entries } from 'quiver-object'
+import { ownKeys } from 'quiver-object'
 
 import { SingleElementNode } from './single'
-import { GraphNode, $doNodeMap } from './node'
+import { GraphNode } from './node'
 import { assertGraphNode, applyNodeMapper } from './util'
 
 const $nodeMap = Symbol('@nodeMap')
+
+const entries = function*(object) {
+  for(let key of ownKeys(object)) {
+    yield [key, object[key]]
+  }
+}
 
 const createMapNodeClass = Parent =>
   class MapNode extends Parent {
@@ -35,11 +41,11 @@ const createMapNodeClass = Parent =>
       this[$nodeMap].set(key, node)
     }
 
-    [$doNodeMap](target, mapper, mapTable) {
+    _doNodeMap(target, mapper, mapTable) {
       for(let [key, subNode] of this[$nodeMap].entries()) {
         target.setNode(key, applyNodeMap(subNode, mapper, mapTable))
       }
-      super[$doNodeMap](target, mapper, mapTable)
+      super._doNodeMap(target, mapper, mapTable)
     }
   }
 
