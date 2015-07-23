@@ -16,7 +16,7 @@ export class SingleElementNode extends GraphNode {
     return this[$element]
   }
 
-  get transposed() {
+  transpose() {
     if(this[$transposed]) return this[$transposed]
 
     const graphNode = this
@@ -24,7 +24,7 @@ export class SingleElementNode extends GraphNode {
 
     const transposed = Object.create()
     Object.defineProperties(transposed, {
-      graphNode: {
+      graph: {
         get() {
           return graphNode
         }
@@ -45,12 +45,7 @@ export class SingleElementNode extends GraphNode {
     yield* super.elements()
   }
 
-  _setElement(element) {
-    assertNotFrozen(this)
-    this[$element] = element
-  }
-
   _doElementMap(target, mapper) {
-    target._setElement(mapper(this.element))
+    target[$element] = mapper(this.element)
   }
 }

@@ -11,6 +11,9 @@
   "repository": {
     "url": "git@github.com:quiverjs/quiver-component.git"
   },
+  "dependencies": {
+    "quiver-object": "~1.4.3"
+  },
   "devDependencies": {
     "chai": "^2.3.0",
     "mocha": "^2.2.4",
