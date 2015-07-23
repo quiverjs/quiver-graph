@@ -1,11 +1,14 @@
-import { assertGraphNode, applyNodeMap } from './util'
 import { SingleElementNode } from './single'
 import { GraphNode, $doNodeMap } from './node'
+import {
+  assertGraphNode, assertNotFrozen,
+  applyNodeMap
+} from './util'
 
 const $nodeList = Symbol('@nodeList')
 
 const validateNodeList = nodeList => {
-  for(node of nodeList) {
+  for(let node of nodeList) {
     assertGraphNode(node)
   }
 }
@@ -38,12 +41,13 @@ const createListNodeClass = Parent =>
     }
 
     [$doNodeMap](target, mapper, mapTable) {
-      target[$nodeList] = this[$nodeList]
-        .map(subNode =>
+      target[$nodeList] = this[$nodeList].map(
+        subNode =>
           applyNodeMap(subNode, mapper, mapTable))
+
+      super[$doNodeMap](target, mapper, mapTable)
     }
   }
 
-// List node with a single own element and connected to
-// other graph nodes.
-export const ListNode = createListNodeClass(SingleElementNode)
+export const ListNode = createListNodeClass(GraphNode)
+export const ListNodeWithElement = createListNodeClass(SingleElementNode)

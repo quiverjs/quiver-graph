@@ -1,18 +1,24 @@
 import { idgen } from './idgen'
-import { deepFreeze } from './util'
+import { deepFreeze, deepClone } from './util'
 
 const $id = Symbol('@id')
+const $meta = Symbol('@meta')
 const $frozen = Symbol('@frozen')
+
+// Polyfill Symbol.species
+if(!Symbol.species) Symbol.species = Symbol('@@species')
+const $species = Symbol.species
 
 export const $doNodeMap = Symbol('@doGraphMap')
 export const $doElementMap = Symbol('@doElementMap')
 
-const noopMapper = (value) => value
-
 export class GraphNode {
-  constructor() {
+  constructor(opts={}) {
+    const { meta=new Map() } = opts
+
     this[$id] = Symbol(idgen)
     this[$frozen] = false
+    this[$meta] = meta
   }
 
   get id() {
@@ -21,6 +27,10 @@ export class GraphNode {
 
   get isQuiverGraphNode() {
     return true
+  }
+
+  get meta() {
+    return this[$meta]
   }
 
   get frozen() {
@@ -35,10 +45,12 @@ export class GraphNode {
     this[$frozen] = true
   }
 
-  construct() {
-    // Note: use Symbol.species to create
-    // new nodes when it becomes available
-    return new this.constructor()
+  construct(...args) {
+    let { constructor } = this
+    if(constructor[$species])
+      constructor = constructor[$species]
+
+    return new constructor(...args)
   }
 
   /*
@@ -69,10 +81,13 @@ export class GraphNode {
     const mapped = mapTable.get(this.id)
     if(mapped) return mapped
 
-    const target = this.construct()
+    const target = this.construct({
+      meta: new Map(this.meta.entries())
+    })
+
     mapTable.set(this.id, target)
 
-    this[$doElementMap](target, mapper)
+    this[$doElementMap](target, elementMapper)
     this[$doNodeMap](target, nodeMapper, mapTable)
 
     return target

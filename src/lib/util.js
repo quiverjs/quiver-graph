@@ -1,20 +1,19 @@
 export const isGraphNode = node =>
   node.isQuiverGraphNode
 
-const assertGraphNode = node => {
+export const assertGraphNode = node => {
   if(!node.isQuiverGraphNode)
     throw new Error('object must be instance of GraphNode')
 }
 
-const assertNotFrozen = node => {
+export const assertNotFrozen = node => {
   if(node.frozen)
     throw new Error('Graph node is frozen and cannot be modified')
 }
 
 export const applyNodeMap = (node, mapper, mapTable) => {
   const mapped = mapper(node, mapTable)
-  if(!isGraphNode(mapped))
-    throw new Error('Mapped result must also be graph node')
+  assertGraphNode(mapped)
 
   const entry = mapTable.get(node.id)
   if(entry && entry !== mapped)
@@ -40,16 +39,16 @@ export const allNodes = function*(node, visitMap=new Set()) {
 }
 
 export const deepFreeze = node => {
-  for(let node of allNodes(node)) {
-    node.freeze()
+  for(let subNode of allNodes(node)) {
+    subNode.freeze()
   }
 }
 
 // Deep map on elements of node and subnodes
-export const elementMap = (node, mapper, mapTable) =>
+export const elementMap = (node, mapper, mapTable=new Map()) =>
   node.graphMap((subNode, mapTable) =>
-    elementMap(subNode, mapper, mapTable)
-    , mapper, mapTable)
+    elementMap(subNode, mapper, mapTable),
+    mapper, mapTable)
 
 export const deepClone = node =>
-  deepElementMap(node, (el) => el)
+  elementMap(node, el => el)
