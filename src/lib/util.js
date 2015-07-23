@@ -11,7 +11,7 @@ const assertNotFrozen = node => {
     throw new Error('Graph node is frozen and cannot be modified')
 }
 
-export const applyNodeMapper = (node, mapper, mapTable) => {
+export const applyNodeMap = (node, mapper, mapTable) => {
   const mapped = mapper(node, mapTable)
   if(!isGraphNode(mapped))
     throw new Error('Mapped result must also be graph node')
@@ -23,23 +23,32 @@ export const applyNodeMapper = (node, mapper, mapTable) => {
 
   if(!entry)
     mapTable.set(node.id, entry)
+
+  return mapped
 }
 
-// Deep iteration of all subnodes, excluding own
-export const allSubNodes = function*(node, visitMap=new Map()) {
+// Deep iteration of all subnodes, including own
+export const allNodes = function*(node, visitMap=new Set()) {
+  if(visitMap.has(node.id)) return
+
+  visitMap.add(node.id)
   for(let subNode of node.subNodes()) {
     if(!visitMap[subNode.id]) {
-      visitMap[subNode.id] = true
-      yield subNode
-      yield* allSubNodes(subNode, visitMap)
+      yield* allNodes(subNode, visitMap)
     }
+  }
+}
+
+export const deepFreeze = node => {
+  for(let node of allNodes(node)) {
+    node.freeze()
   }
 }
 
 // Deep map on elements of node and subnodes
 export const elementMap = (node, mapper, mapTable) =>
-  node.map((subNode, mapTable) =>
-    deepElementMap(subNode, mapper, mapTable)
+  node.graphMap((subNode, mapTable) =>
+    elementMap(subNode, mapper, mapTable)
     , mapper, mapTable)
 
 export const deepClone = node =>

@@ -1,4 +1,5 @@
 import { idgen } from './idgen'
+import { deepFreeze } from './util'
 
 const $id = Symbol('@id')
 const $frozen = Symbol('@frozen')
@@ -32,13 +33,6 @@ export class GraphNode {
    */
   freeze() {
     this[$frozen] = true
-  }
-
-  deepFreeze() {
-    this.freeze()
-    for(let subNode of this.subNodes()) {
-      subNode.deepFreeze()
-    }
   }
 
   construct() {
@@ -82,5 +76,10 @@ export class GraphNode {
     this[$doNodeMap](target, nodeMapper, mapTable)
 
     return target
+  }
+
+  export() {
+    deepFreeze(this)
+    return () => deepClone(this)
   }
 }

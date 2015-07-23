@@ -1,4 +1,4 @@
-import { assertGraphNode, applyNodeMapper } from './util'
+import { assertGraphNode, applyNodeMap } from './util'
 import { SingleElementNode } from './single'
 import { GraphNode, $doNodeMap } from './node'
 
@@ -21,7 +21,8 @@ const createListNodeClass = Parent =>
     }
 
     *subNodes() {
-      yield this[$nodeList]
+      yield* this[$nodeList]
+      yield* super.subNodes()
     }
 
     appendNode(node) {
@@ -37,9 +38,12 @@ const createListNodeClass = Parent =>
     }
 
     [$doNodeMap](target, mapper, mapTable) {
-      target[$nodeList] = this[$nodeList].map(
-        subNode => mapper(subNode, mapTable))
+      target[$nodeList] = this[$nodeList]
+        .map(subNode =>
+          applyNodeMap(subNode, mapper, mapTable))
     }
   }
 
+// List node with a single own element and connected to
+// other graph nodes.
 export const ListNode = createListNodeClass(SingleElementNode)
