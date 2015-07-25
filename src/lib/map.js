@@ -2,7 +2,9 @@ import { ownKeys } from 'quiver-object'
 
 import { SingleElementNode } from './single'
 import { GraphNode } from './node'
-import { assertIsGraphNode, applyNodeMapper } from './util'
+import {
+  assertIsGraphNode, assertNotFrozen, applyNodeMap
+} from './util'
 
 const $nodeMap = Symbol('@nodeMap')
 

@@ -1,36 +1,13 @@
 import 'babel/polyfill'
 import test from 'tape'
 
-import { elementMap } from '../lib/util'
-import { SingleElementNode } from '../lib/single'
-import { ListNode, ListNodeWithElement } from '../lib/list'
+import { ListNode } from '../lib/list'
+import { elementMap, allNodes } from '../lib/util'
 
-const id = val => val
-
-const createElement = name => ({ name, count: 0 })
-const createElements = names => names.map(createElement)
-
-const createElementNode = element =>
-  (new SingleElementNode({ element }))
-
-const createElementNodes = elements =>
-  elements.map(createElementNode)
-
-const mapField = (field, list) =>
-  list.map(obj => obj[field])
-
-const mapNames = function() {
-  return mapField('name', this)
-}
-
-const mapCounts = function() {
-  return mapField('count', this)
-}
-
-const subElements = function() {
-  return [...this.subNodes()].map(
-    subNode => subNode.element)
-}
+import {
+  createElements, createElementNode, createElementNodes,
+  subElements, mapNames, mapCounts
+} from './helper'
 
 test('ListNode test', assert => {
   const elements = createElements(['foo', 'bar', 'baz'])

@@ -26,11 +26,13 @@ export const applyNodeMap = (node, mapper, mapTable) => {
   return mapped
 }
 
-// Deep iteration of all subnodes, including own
+// Deep iteration of all subnodes, including self
 export const allNodes = function*(node, visitMap=new Set()) {
   if(visitMap.has(node.id)) return
 
   visitMap.add(node.id)
+  yield node
+
   for(let subNode of node.subNodes()) {
     if(!visitMap[subNode.id]) {
       yield* allNodes(subNode, visitMap)
