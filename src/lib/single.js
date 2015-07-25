@@ -22,7 +22,7 @@ export class SingleElementNode extends GraphNode {
     const graphNode = this
     const element = graphNode.element
 
-    const transposed = Object.create()
+    const transposed = Object.create(element)
     Object.defineProperties(transposed, {
       graphNode: {
         get() {

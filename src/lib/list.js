@@ -20,7 +20,7 @@ const createListNodeClass = Parent =>
       super(opts)
 
       validateNodeList(nodeList)
-      this[$nodeList] = nodeList
+      this[$nodeList] = nodeList.slice()
     }
 
     *subNodes() {
