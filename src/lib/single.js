@@ -24,12 +24,12 @@ export class SingleElementNode extends GraphNode {
 
     const transposed = Object.create()
     Object.defineProperties(transposed, {
-      graph: {
+      graphNode: {
         get() {
           return graphNode
         }
       },
-      element: {
+      graphElement: {
         get() {
           return element
         }

@@ -2,7 +2,7 @@ import { ownKeys } from 'quiver-object'
 
 import { SingleElementNode } from './single'
 import { GraphNode } from './node'
-import { assertGraphNode, applyNodeMapper } from './util'
+import { assertIsGraphNode, applyNodeMapper } from './util'
 
 const $nodeMap = Symbol('@nodeMap')
 
@@ -20,7 +20,7 @@ const createMapNodeClass = Parent =>
 
       this[$nodeMap] = new Map()
       for(let [key, subNode] of entries(map)) {
-        assertGraphNode(subNode)
+        assertIsGraphNode(subNode)
         this.setNode(key, subNode)
       }
     }
@@ -35,7 +35,7 @@ const createMapNodeClass = Parent =>
     }
 
     setNode(key, node) {
-      assertGraphNode(node)
+      assertIsGraphNode(node)
       assertNotFrozen(this)
 
       this[$nodeMap].set(key, node)

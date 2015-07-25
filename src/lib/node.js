@@ -89,9 +89,4 @@ export class GraphNode {
 
     return target
   }
-
-  export() {
-    deepFreeze(this)
-    return () => deepClone(this)
-  }
 }

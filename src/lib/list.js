@@ -1,7 +1,7 @@
 import { SingleElementNode } from './single'
 import { GraphNode } from './node'
 import {
-  assertGraphNode, assertNotFrozen,
+  assertIsGraphNode, assertNotFrozen,
   applyNodeMap
 } from './util'
 
@@ -9,7 +9,7 @@ const $nodeList = Symbol('@nodeList')
 
 const validateNodeList = nodeList => {
   for(let node of nodeList) {
-    assertGraphNode(node)
+    assertIsGraphNode(node)
   }
 }
 
@@ -29,13 +29,13 @@ const createListNodeClass = Parent =>
     }
 
     appendNode(node) {
-      assertGraphNode(node)
+      assertIsGraphNode(node)
       assertNotFrozen(this)
       this[$nodeList].push(node)
     }
 
     prependNode(node) {
-      assertGraphNode(node)
+      assertIsGraphNode(node)
       assertNotFrozen(this)
       this[$nodeList].unshift(node)
     }

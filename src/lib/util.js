@@ -1,7 +1,7 @@
 export const isGraphNode = node =>
   node.isQuiverGraphNode
 
-export const assertGraphNode = node => {
+export const assertIsGraphNode = node => {
   if(!node.isQuiverGraphNode)
     throw new Error('object must be instance of GraphNode')
 }
@@ -13,7 +13,7 @@ export const assertNotFrozen = node => {
 
 export const applyNodeMap = (node, mapper, mapTable) => {
   const mapped = mapper(node, mapTable)
-  assertGraphNode(mapped)
+  assertIsGraphNode(mapped)
 
   const entry = mapTable.get(node.id)
   if(entry && entry !== mapped)
