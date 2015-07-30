@@ -1,7 +1,8 @@
-import { ownKeys } from 'quiver-object'
+import { ownKeys } from 'quiver-util/object'
 
-import { SingleElementNode } from './single'
+import { NodeWithElement } from './element'
 import { GraphNode } from './node'
+
 import {
   assertIsGraphNode, assertNotFrozen, applyNodeMap
 } from './util'
@@ -52,4 +53,4 @@ const createMapNodeClass = Parent =>
   }
 
 export const MapNode = createMapNodeClass(GraphNode)
-export const MapNodeWithElement = createMapNodeClass(SingleElementNode)
+export const MapNodeWithElement = createMapNodeClass(NodeWithElement)

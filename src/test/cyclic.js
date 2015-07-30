@@ -1,4 +1,3 @@
-import 'babel/polyfill'
 import test from 'tape'
 
 import { MapNodeWithElement } from '../lib/map'

@@ -1,4 +1,3 @@
-import 'babel/polyfill'
 import test from 'tape'
 
 import { GraphNode } from '../lib/node'

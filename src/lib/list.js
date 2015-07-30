@@ -1,5 +1,5 @@
-import { SingleElementNode } from './single'
 import { GraphNode } from './node'
+import { NodeWithElement } from './element'
 import {
   assertIsGraphNode, assertNotFrozen,
   applyNodeMap
@@ -50,4 +50,4 @@ const createListNodeClass = Parent =>
   }
 
 export const ListNode = createListNodeClass(GraphNode)
-export const ListNodeWithElement = createListNodeClass(SingleElementNode)
+export const ListNodeWithElement = createListNodeClass(NodeWithElement)

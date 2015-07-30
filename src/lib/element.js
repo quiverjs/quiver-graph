@@ -1,10 +1,10 @@
-import { GraphNode, $doElementMap } from './node'
+import { GraphNode } from './node'
 import { assertNotFrozen } from './util'
 
 const $element = Symbol('@element')
 const $transposed = Symbol('@transposed')
 
-export class SingleElementNode extends GraphNode {
+export class NodeWithElement extends GraphNode {
   constructor(opts={}) {
     const { element=null } = opts
     super(opts)

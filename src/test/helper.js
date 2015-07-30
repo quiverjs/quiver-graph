@@ -1,13 +1,11 @@
-import 'babel/polyfill'
-
 import { allNodes } from '../lib/util'
-import { SingleElementNode } from '../lib/single'
+import { NodeWithElement } from '../lib/element'
 
 export const createElement = name => ({ name, count: 0 })
 export const createElements = names => names.map(createElement)
 
 export const createElementNode = element =>
-  (new SingleElementNode({ element }))
+  (new NodeWithElement({ element }))
 
 export const createElementNodes = elements =>
   elements.map(createElementNode)

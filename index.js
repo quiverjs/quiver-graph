@@ -1,3 +1,3 @@
 'use strict'
 require('babel/polyfill')
-module.exports = require('./out/lib/graph.js')
+module.exports = require('./out/lib/graph')

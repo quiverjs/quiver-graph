@@ -1,4 +1,6 @@
+import 'babel/polyfill'
+
 import './node'
-import './single'
+import './element'
 import './list'
 import './cyclic'

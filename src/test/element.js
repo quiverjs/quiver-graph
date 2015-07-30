@@ -1,13 +1,12 @@
-import 'babel/polyfill'
 import test from 'tape'
 
-import { SingleElementNode } from '../lib/single'
+import { NodeWithElement } from '../lib/element'
 
 const id = val => val
 
 test('SingleElementNode test', assert => {
   const element = { foo: 'bar' }
-  const node = new SingleElementNode({ element })
+  const node = new NodeWithElement({ element })
 
   assert.equal(node.element, element)
   assert.equal([...node.elements()].length, 1)

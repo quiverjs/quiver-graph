@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "babel": "^5.8.5",
-    "quiver-object": "~1.4.3"
+    "quiver-util": "quiverjs/quiver-util"
   },
   "devDependencies": {
     "tape": "^4.0.1"
@@ -26,9 +26,10 @@
   "main": "./index.js",
   "scripts": {
     "test": "make test",
-    "prepublish": "make build"
+    "prepublish": "make build",
+    "postinstall": "npm install babel && make build"
   },
   "engines": {
-    "iojs": "^2.4.0"
+    "iojs": "^2.5.0"
   }
 }
