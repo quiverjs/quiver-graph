@@ -1,5 +1,7 @@
+import { GraphNode } from './node'
+import { $doNodeMap } from './symbol'
 import { NodeWithElement } from './element'
-import { GraphNode, $doNodeMap } from './node'
+
 import {
   assertIsGraphNode, assertNotFrozen,
   applyNodeMap

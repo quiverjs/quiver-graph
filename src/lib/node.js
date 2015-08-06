@@ -1,12 +1,10 @@
 import { idgen } from './idgen'
 import { deepFreeze, deepClone } from './util'
+import { $doNodeMap, $doElementMap } from './symbol'
 
 const $id = Symbol('@id')
 const $meta = Symbol('@meta')
 const $frozen = Symbol('@frozen')
-
-export const $doNodeMap = Symbol('@doNodeMap')
-export const $doElementMap = Symbol('@doElementMap')
 
 // Polyfill Symbol.species
 if(!Symbol.species) Symbol.species = Symbol('@@species')
