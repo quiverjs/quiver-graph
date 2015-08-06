@@ -5,6 +5,9 @@ const $id = Symbol('@id')
 const $meta = Symbol('@meta')
 const $frozen = Symbol('@frozen')
 
+export const $doNodeMap = Symbol('@doNodeMap')
+export const $doElementMap = Symbol('@doElementMap')
+
 // Polyfill Symbol.species
 if(!Symbol.species) Symbol.species = Symbol('@@species')
 const $species = Symbol.species
@@ -66,11 +69,11 @@ export class GraphNode {
     // noop
   }
 
-  _doElementMap(target, mapper) {
+  [$doElementMap](target, mapper) {
     // noop
   }
 
-  _doNodeMap(target, mapper, mapTable) {
+  [$doNodeMap](target, mapper, mapTable) {
     // noop
   }
 
@@ -84,8 +87,8 @@ export class GraphNode {
 
     mapTable.set(this.id, target)
 
-    this._doElementMap(target, elementMapper)
-    this._doNodeMap(target, nodeMapper, mapTable)
+    this[$doElementMap](target, elementMapper)
+    this[$doNodeMap](target, nodeMapper, mapTable)
 
     return target
   }

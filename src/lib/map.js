@@ -1,7 +1,7 @@
 import { ownKeys } from 'quiver-util/object'
 
 import { NodeWithElement } from './element'
-import { GraphNode } from './node'
+import { GraphNode, $doNodeMap } from './node'
 
 import {
   assertIsGraphNode, assertNotFrozen, applyNodeMap
@@ -44,11 +44,11 @@ const createMapNodeClass = Parent =>
       this[$nodeMap].set(key, node)
     }
 
-    _doNodeMap(target, mapper, mapTable) {
+    [$doNodeMap](target, mapper, mapTable) {
       for(let [key, subNode] of this[$nodeMap].entries()) {
         target.setNode(key, applyNodeMap(subNode, mapper, mapTable))
       }
-      super._doNodeMap(target, mapper, mapTable)
+      super[$doNodeMap](target, mapper, mapTable)
     }
   }
 

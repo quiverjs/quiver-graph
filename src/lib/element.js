@@ -1,5 +1,5 @@
-import { GraphNode } from './node'
 import { assertNotFrozen } from './util'
+import { GraphNode, $doElementMap } from './node'
 
 const $element = Symbol('@element')
 const $transposed = Symbol('@transposed')
@@ -45,7 +45,7 @@ export class NodeWithElement extends GraphNode {
     yield* super.elements()
   }
 
-  _doElementMap(target, mapper) {
+  [$doElementMap](target, mapper) {
     target[$element] = mapper(this.element)
   }
 }

@@ -30,6 +30,6 @@
     "postinstall": "make postinstall"
   },
   "engines": {
-    "iojs": "^2.5.0"
+    "iojs": "^3.0.0"
   }
 }
