@@ -7,27 +7,26 @@
   "name": "quiver-graph",
   "desription": "Directed graph data structure abstraction for quiver-component",
   "version": "1.0.0",
-  "homepage": "https://github.com/quiverjs/quiver-component",
+  "homepage": "https://github.com/quiverjs/quiver-graph",
   "repository": {
-    "url": "git@github.com:quiverjs/quiver-component.git"
+    "url": "git@github.com:quiverjs/quiver-graph.git"
   },
   "dependencies": {
-    "babel": "^5.8.5",
-    "quiver-util": "quiverjs/quiver-util"
+    "babel": "^5.8.20",
+    "quiver-util": "~1.0.0"
   },
   "devDependencies": {
     "tape": "^4.0.1"
   },
   "bugs": {
-    "url": "https://github.com/quiverjs/quiver-component/issues",
+    "url": "https://github.com/quiverjs/quiver-graph/issues",
     "email": "quiver@quiverjs.org"
   },
   "license": "ISC",
   "main": "./index.js",
   "scripts": {
     "test": "make test",
-    "prepublish": "make build",
-    "postinstall": "make postinstall"
+    "prepublish": "make build"
   },
   "engines": {
     "iojs": "^3.0.0"
