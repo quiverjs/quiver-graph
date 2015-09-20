@@ -1,3 +1,5 @@
+import { ImmutableMap } from 'quiver-util/immutable'
+
 import { idgen } from './idgen'
 import { deepFreeze, deepClone } from './util'
 import { $doNodeMap, $doElementMap } from './symbol'
@@ -12,7 +14,7 @@ const $species = Symbol.species
 
 export class GraphNode {
   constructor(opts={}) {
-    const { meta=new Map() } = opts
+    const { meta = ImmutableMap() } = opts
 
     this[$id] = Symbol(idgen())
     this[$frozen] = false
@@ -29,6 +31,16 @@ export class GraphNode {
 
   get meta() {
     return this[$meta]
+  }
+
+  getMeta(key) {
+    return this.meta.get(key)
+  }
+
+  setMeta(key, value) {
+    const newMeta = this.meta.set(key, value)
+    this[$meta] = newMeta
+    return newMeta
   }
 
   get frozen() {

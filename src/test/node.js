@@ -13,7 +13,7 @@ test('GraphNode test', assert => {
   node.freeze()
   assert.equal(node.frozen, true)
 
-  node.meta.set('foo', 'bar')
+  node.setMeta('foo', 'bar')
 
   const mapTable = new Map()
   const mapped = node.graphMap(id, id, mapTable)
@@ -22,11 +22,11 @@ test('GraphNode test', assert => {
   assert.equal(mapTable.get(node.id), mapped)
 
   assert.equal(mapped.frozen, false)
-  assert.equal(mapped.meta.get('foo'), 'bar')
+  assert.equal(mapped.getMeta('foo'), 'bar')
 
-  mapped.meta.set('foo', 'baz')
-  assert.equal(node.meta.get('foo'), 'bar')
-  assert.equal(mapped.meta.get('foo'), 'baz')
+  mapped.setMeta('foo', 'baz')
+  assert.equal(node.getMeta('foo'), 'bar')
+  assert.equal(mapped.getMeta('foo'), 'baz')
 
   const mapped2 = node.graphMap(id, id, mapTable)
   assert.equal(mapped2, mapped)
