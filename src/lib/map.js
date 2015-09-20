@@ -18,15 +18,16 @@ const entries = function*(object) {
 
 const createMapNodeClass = Parent =>
   class MapNode extends Parent {
-    constructor(opts={}) {
-      const { map={} } = opts
-      super(opts)
+    constructor(options={}) {
+      const { map = new Map() } = options
 
-      this[$nodeMap] = new Map()
-      for(let [key, subNode] of entries(map)) {
+      for(let [key, subNode] of map.entries()) {
         assertIsGraphNode(subNode)
-        this.setNode(key, subNode)
       }
+
+      super(options)
+
+      this[$nodeMap] = map
     }
 
     *subNodes() {
