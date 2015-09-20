@@ -1,7 +1,6 @@
 import { ImmutableMap } from 'quiver-util/immutable'
 
 import { idgen } from './idgen'
-import { deepFreeze, deepClone } from './util'
 import { $doNodeMap, $doElementMap } from './symbol'
 
 const $id = Symbol('@id')

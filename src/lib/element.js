@@ -1,6 +1,5 @@
 import { GraphNode } from './node'
 import { $doElementMap } from './symbol'
-import { assertNotFrozen } from './util'
 
 const $element = Symbol('@element')
 const $transposed = Symbol('@transposed')

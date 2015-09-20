@@ -1,7 +1,7 @@
 import test from 'tape'
 
 import { ListNode } from '../lib/list'
-import { elementMap, allNodes } from '../lib/util'
+import { elementMap } from '../lib/util'
 
 import {
   createElements, createElementNode, createElementNodes,
