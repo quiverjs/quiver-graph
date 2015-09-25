@@ -34,9 +34,7 @@ export const allNodes = function*(node, visitMap=new Set()) {
   yield node
 
   for(let subNode of node.subNodes()) {
-    if(!visitMap[subNode.id]) {
-      yield* allNodes(subNode, visitMap)
-    }
+    yield* allNodes(subNode, visitMap)
   }
 }
 
