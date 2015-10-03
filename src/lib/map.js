@@ -30,6 +30,10 @@ const createMapNodeClass = Parent =>
       this[$nodeMap] = map
     }
 
+    mapEntries() {
+      return this[$nodeMap].entries()
+    }
+
     *subNodes() {
       yield* this[$nodeMap].values()
       yield* super.subNodes()
