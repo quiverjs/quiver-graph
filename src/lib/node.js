@@ -39,7 +39,7 @@ export class GraphNode {
   setMeta(key, value) {
     const newMeta = this.meta.set(key, value)
     this[$meta] = newMeta
-    return newMeta
+    return this
   }
 
   get frozen() {
